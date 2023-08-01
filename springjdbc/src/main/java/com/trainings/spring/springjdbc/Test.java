@@ -19,5 +19,4 @@ public class Test {
 			System.out.println("Something went wrong!");
 		}
 	}
-
 }
