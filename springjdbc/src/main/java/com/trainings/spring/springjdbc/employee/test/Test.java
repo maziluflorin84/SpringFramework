@@ -2,8 +2,6 @@ package com.trainings.spring.springjdbc.employee.test;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
-
 import com.trainings.spring.springjdbc.employee.dao.EmployeeDao;
 import com.trainings.spring.springjdbc.employee.dto.Employee;
 
