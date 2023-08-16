@@ -14,4 +14,6 @@ public interface EmployeeDao {
 	Employee read(int id);
 	
 	List<Employee> readList();
+	
+	int readMaxId();
 }

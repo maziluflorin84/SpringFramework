@@ -8,6 +8,8 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <context:component-scan base-package="com.trainings.spring.springjdbc.employee.dao.impl" />
+
 	<bean
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 		name="dataSource" p:url="jdbc:mysql://localhost/mydb"
@@ -16,11 +18,4 @@
 	<bean class="org.springframework.jdbc.core.JdbcTemplate"
 		name="jdbcTemplate" p:dataSource-ref="dataSource" />
 
-	<bean
-		class="com.trainings.spring.springjdbc.employee.dao.impl.EmployeeDaoImpl"
-		name="employeeDao">
-		<property name="jdbcTemplate">
-			<ref bean="jdbcTemplate" />
-		</property>
-	</bean>
 </beans>

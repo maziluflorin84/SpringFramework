@@ -17,44 +17,66 @@ public class Test {
 		context = new ClassPathXmlApplicationContext("com/trainings/spring/springjdbc/employee/test/config.xml");
 		EmployeeDao dao = (EmployeeDao) context.getBean("employeeDao");
 		Employee employee = new Employee();
-		employee.setId(2);
 		int result = 0;
-		
+
 		try (Scanner scanner = new Scanner(System.in)) {
-			System.out.println("Enter:\n1 to add John Doe\n2 to rename John Doe\n3 to delete someone");
-			int input = scanner.nextInt();
-			if (input == 1) {
+
+			List<Employee> empList = dao.readList();
+			printList(empList, false);
+			
+			System.out.println(
+					"Enter:\n1 to add John Doe\n2 to update employee\n3 to delete someone");
+			int selectAction = scanner.nextInt();
+			switch (selectAction) {
+			case 1:
+				employee.setId(dao.readMaxId() + 1);
 				employee.setFirstName("John");
 				employee.setLastName("Doe");
 				result = dao.create(employee);
-				if (result == 1)
-					System.out.println("Record inserted!!!");
-			} else if (input == 2) {
-				employee.setFirstName("Johny");
-				employee.setLastName("Does");
-				result = dao.update(employee);
-				if (result == 1)
-					System.out.println("Record modified!!!");
-			} else if (input == 3) {
-				List<Employee> list = dao.readList();
-				System.out.println("Select an id from the list bellow\n");
-				System.out.println("Id\tFirst Name\tLast Name");
-				for (Employee item : list) {
-					System.out.println(item.getId() + "\t" + item.getFirstName() + "\t\t" + item.getLastName());
-				}
-				input = scanner.nextInt();
-				result = dao.delete(input);
 				if (result == 1) {
-					for (Employee item : list) {
-						if (item.getId() == input) {
-							System.out.println(item.getFirstName() + " was deleted!!!");
-						}
-					}
+					System.out.println("Record added!!!");
+					empList = dao.readList();
+					printList(empList, true);
 				}
+				break;
+			case 2:
+				System.out.println("Select an id to update");
+				employee.setId(scanner.nextInt());
+				System.out.println("Give a first name");
+				employee.setFirstName(scanner.next());
+				System.out.println("Give a last name");
+				employee.setLastName(scanner.next());
+				result = dao.update(employee);
+				if (result == 1) {
+					System.out.println("Record modified!!!");
+					empList = dao.readList();
+					printList(empList, true);
+				}
+				break;
+			case 3:
+				System.out.println("Select an id to delete");
+				result = dao.delete(scanner.nextInt());
+				if (result == 1) {
+					System.out.println("Record deleted!!!");
+					empList = dao.readList();
+					printList(empList, true);
+				}
+				break;
+			default:
+				break;
 			}
 			if (result != 1) {
 				System.out.println("Something went wrong");
 			}
-		} 
+		}
+	}
+
+	private static void printList(List<Employee> empList, boolean updated) {
+		System.out.println("The" + (updated ? " updated " : " ") + "list:");
+		System.out.println("Id\tFirst Name\tLast Name");
+		for (Employee item : empList) {
+			System.out.println(item.getId() + "\t" + item.getFirstName() + "\t\t" + item.getLastName());
+		}
+		System.out.println();
 	}
 }
