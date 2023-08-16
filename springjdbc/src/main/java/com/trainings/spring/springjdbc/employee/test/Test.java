@@ -18,6 +18,7 @@ public class Test {
 		EmployeeDao dao = (EmployeeDao) context.getBean("employeeDao");
 		Employee employee = new Employee();
 		int result = 0;
+		String message = "";
 
 		try (Scanner scanner = new Scanner(System.in)) {
 
@@ -33,11 +34,7 @@ public class Test {
 				employee.setFirstName("John");
 				employee.setLastName("Doe");
 				result = dao.create(employee);
-				if (result == 1) {
-					System.out.println("Record added!!!");
-					empList = dao.readList();
-					printList(empList, true);
-				}
+				message = "added";
 				break;
 			case 2:
 				System.out.println("Select an id to update");
@@ -47,25 +44,21 @@ public class Test {
 				System.out.println("Give a last name");
 				employee.setLastName(scanner.next());
 				result = dao.update(employee);
-				if (result == 1) {
-					System.out.println("Record modified!!!");
-					empList = dao.readList();
-					printList(empList, true);
-				}
+				message = "updated";
 				break;
 			case 3:
 				System.out.println("Select an id to delete");
 				result = dao.delete(scanner.nextInt());
-				if (result == 1) {
-					System.out.println("Record deleted!!!");
-					empList = dao.readList();
-					printList(empList, true);
-				}
+				message = "deleted";
 				break;
 			default:
 				break;
 			}
-			if (result != 1) {
+			if (result == 1) {
+				System.out.println("Record was " + message + "!!!");
+				empList = dao.readList();
+				printList(empList, true);
+			} else if (result == 0) {
 				System.out.println("Something went wrong");
 			}
 		}
