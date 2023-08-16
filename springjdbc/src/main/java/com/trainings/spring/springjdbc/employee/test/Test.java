@@ -28,6 +28,7 @@ public class Test {
 			System.out.println(
 					"Enter:\n1 to add John Doe\n2 to update employee\n3 to delete someone");
 			int selectAction = scanner.nextInt();
+			
 			switch (selectAction) {
 			case 1:
 				employee.setId(dao.readMaxId() + 1);
@@ -39,27 +40,46 @@ public class Test {
 			case 2:
 				System.out.println("Select an id to update");
 				employee.setId(scanner.nextInt());
-				System.out.println("Give a first name");
-				employee.setFirstName(scanner.next());
-				System.out.println("Give a last name");
-				employee.setLastName(scanner.next());
-				result = dao.update(employee);
-				message = "updated";
+				if (dao.read(employee.getId()) == null) {
+					result = 2;
+				} else {
+					System.out.println("Give a first name");
+					employee.setFirstName(scanner.next());
+					System.out.println("Give a last name");
+					employee.setLastName(scanner.next());
+					result = dao.update(employee);
+					message = "updated";					
+				}
 				break;
 			case 3:
 				System.out.println("Select an id to delete");
-				result = dao.delete(scanner.nextInt());
-				message = "deleted";
+				int idToDelete = scanner.nextInt();
+				if (dao.read(idToDelete) == null) {
+					result = 2;
+				} else {
+					result = dao.delete(idToDelete);
+					message = "deleted";
+				}
 				break;
 			default:
 				break;
 			}
-			if (result == 1) {
+			
+			switch (result) {
+			case 0:
+				System.out.println("Something went wrong");
+				break;
+			case 1:
 				System.out.println("Record was " + message + "!!!");
 				empList = dao.readList();
 				printList(empList, true);
-			} else if (result == 0) {
-				System.out.println("Something went wrong");
+				break;
+			case 2:
+				System.out.println("Missing id");
+				break;
+
+			default:
+				break;
 			}
 		}
 	}

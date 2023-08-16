@@ -3,6 +3,7 @@ package com.trainings.spring.springjdbc.employee.dao.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -41,7 +42,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public Employee read(int id) {
 		String sql = "select * from employee where id=?";
 		EmployeeRowMapper rowMapper = new EmployeeRowMapper();
-		Employee employee = jdbcTemplate.queryForObject(sql, rowMapper, id);
+		Employee employee = null;
+		try {
+			employee = jdbcTemplate.queryForObject(sql, rowMapper, id);
+		} catch (EmptyResultDataAccessException e) {}
 		return employee;
 	}
 	
