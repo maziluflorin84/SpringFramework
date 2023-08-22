@@ -11,7 +11,7 @@ public interface EmployeeDao {
 	
 	int delete(int id);
 	
-	Employee read(int id);
+	List<Employee> read(int id);
 	
 	List<Employee> readList();
 	

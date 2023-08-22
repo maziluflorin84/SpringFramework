@@ -39,14 +39,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	}
 	
 	@Override
-	public Employee read(int id) {
+	public List<Employee> read(int id) {
 		String sql = "select * from employee where id=?";
 		EmployeeRowMapper rowMapper = new EmployeeRowMapper();
-		Employee employee = null;
-		try {
-			employee = jdbcTemplate.queryForObject(sql, rowMapper, id);
-		} catch (EmptyResultDataAccessException e) {}
-		return employee;
+		List<Employee> list = jdbcTemplate.query(sql, rowMapper, id);
+		return list;
 	}
 	
 	@Override

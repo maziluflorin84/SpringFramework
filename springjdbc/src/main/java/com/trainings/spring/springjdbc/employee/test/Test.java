@@ -47,8 +47,10 @@ public class Test {
 					employee.setFirstName(scanner.next());
 					System.out.println("Give a last name");
 					employee.setLastName(scanner.next());
-					result = dao.update(employee);
-					message = "updated";					
+					if (dao.update(employee) > 0) {
+						result = 1;
+						message = "updated";					
+					}
 				}
 				break;
 			case 3:
@@ -56,8 +58,8 @@ public class Test {
 				int idToDelete = scanner.nextInt();
 				if (dao.read(idToDelete) == null) {
 					result = 2;
-				} else {
-					result = dao.delete(idToDelete);
+				} else if (dao.delete(idToDelete) > 0) {
+					result = 1;
 					message = "deleted";
 				}
 				break;
