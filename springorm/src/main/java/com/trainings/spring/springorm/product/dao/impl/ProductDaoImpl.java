@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.trainings.spring.springorm.product.dao.ProductDao;
-import com.trainings.spring.springorm.product.entity.Product;
+import com.trainings.spring.springorm.product.entity.ProductEntity;
 
 @Component("productDao")
 public class ProductDaoImpl implements ProductDao {
@@ -16,7 +16,7 @@ public class ProductDaoImpl implements ProductDao {
 	
 	@Override
 	@Transactional
-	public int create(Product product) {
+	public int create(ProductEntity product) {
 		Integer result = (Integer) hibernateTemplate.save(product);
 		return result;
 	}

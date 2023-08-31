@@ -1,14 +1,18 @@
 package com.trainings.spring.springorm.product.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class Product {
+@Table(name = "product")
+public class ProductEntity {
 	@Id
 	private int id;
 	private String name;
-	private String description;
+	@Column(name = "description")
+	private String desc;
 	private double price;
 
 	public int getId() {
@@ -27,12 +31,12 @@ public class Product {
 		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getDesc() {
+		return desc;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 
 	public double getPrice() {

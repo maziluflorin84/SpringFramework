@@ -4,17 +4,19 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.trainings.spring.springorm.product.dao.ProductDao;
-import com.trainings.spring.springorm.product.entity.Product;
+import com.trainings.spring.springorm.product.entity.ProductEntity;
 
 public class Test {
 
+	private static ApplicationContext context;
+	
 	public static void main(String[] args) {
-		ApplicationContext context = new ClassPathXmlApplicationContext("com/trainings/spring/springorm/product/test/config.xml");
+		context = new ClassPathXmlApplicationContext("com/trainings/spring/springorm/product/test/config.xml");
 		ProductDao productDao = (ProductDao) context.getBean("productDao");
-		Product product = new Product();
+		ProductEntity product = new ProductEntity();
 		product.setId(1);
 		product.setName("iPhone");
-		product.setDescription("Coooooool");
+		product.setDesc("Coooooool");
 		product.setPrice(4000);
 		productDao.create(product);
 	}

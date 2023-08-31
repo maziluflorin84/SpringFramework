@@ -1,7 +1,7 @@
 package com.trainings.spring.springorm.product.dao;
 
-import com.trainings.spring.springorm.product.entity.Product;
+import com.trainings.spring.springorm.product.entity.ProductEntity;
 
 public interface ProductDao {
-	int create(Product product);
+	int create(ProductEntity product);
 }
