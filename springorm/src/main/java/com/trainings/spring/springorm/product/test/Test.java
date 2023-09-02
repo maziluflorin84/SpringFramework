@@ -16,7 +16,7 @@ public class Test {
 		context = new ClassPathXmlApplicationContext("com/trainings/spring/springorm/product/test/config.xml");
 		ProductDao productDao = (ProductDao) context.getBean("productDao");
 //		ProductEntity product = new ProductEntity();
-//		product.setId(2);
+//		product.setId(3);
 //		product.setName("iPhone");
 //		product.setDesc("Pro");
 //		product.setPrice(6000);
@@ -24,7 +24,7 @@ public class Test {
 //		productDao.update(product);
 //		productDao.delete(product);
 		
-//		ProductEntity product = productDao.find(1);
+//		ProductEntity product = productDao.find(3);
 //		System.out.println(product);
 		
 		List<ProductEntity> productList = productDao.findAll();
